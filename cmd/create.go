@@ -61,7 +61,7 @@ func create() {
 
 	// Check if containerRegistry was provided by the user
 	if containerRegistry == "" {
-		fmt.Printf(" *** Please provide a valid container registry to store the created OCI images *** \n")
+		fmt.Printf(" *** Please provide a valid container registry to store the created OCI image *** \n")
 		log.Info("Skipping OCI image creation.")
 		return
 	}
@@ -75,7 +75,7 @@ func create() {
 	}
 
 	seedCreator := seed.NewSeedCreator(log, op, rpmOstreeClient, backupDir, kubeconfigFile,
-		containerRegistry, backupTag, authFile)
+		containerRegistry, authFile)
 	err = seedCreator.CreateSeedImage()
 	if err != nil {
 		log.Fatal(err)

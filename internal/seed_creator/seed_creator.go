@@ -32,12 +32,11 @@ type SeedCreator struct {
 	backupDir         string
 	kubeconfig        string
 	containerRegistry string
-	backupTag         string
 	authFile          string
 }
 
 func NewSeedCreator(log *logrus.Logger, ops ops.Ops, ostreeClient *ostree.Client, backupDir,
-	kubeconfig, containerRegistry, backupTag, authFile string) *SeedCreator {
+	kubeconfig, containerRegistry, authFile string) *SeedCreator {
 	return &SeedCreator{
 		log:               log,
 		ops:               ops,
@@ -45,7 +44,6 @@ func NewSeedCreator(log *logrus.Logger, ops ops.Ops, ostreeClient *ostree.Client
 		backupDir:         backupDir,
 		kubeconfig:        kubeconfig,
 		containerRegistry: containerRegistry,
-		backupTag:         backupTag,
 		authFile:          authFile,
 	}
 }
@@ -290,7 +288,7 @@ func (s *SeedCreator) backupMCOConfig() error {
 
 // Building and pushing OCI image
 func (s *SeedCreator) createAndPushSeedImage() error {
-	image := s.containerRegistry + ":" + s.backupTag
+	image := s.containerRegistry
 	s.log.Println("Build and push OCI image to", image)
 	s.log.Debug(s.ostreeClient.RpmOstreeVersion()) // If verbose, also dump out current rpm-ostree version available
 
